@@ -12,21 +12,27 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function Products({ navigation }) {
   const [products, setProducts] = useState([]);
+  // const [productId, setproductId] = useState("");
 
   useEffect(() => {
     axios
       .get(process.env.EXPO_PUBLIC_API_URL + "/products")
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setProducts(response.data);
+
+        // const productId = response.data.map((product) => product.id);
+        // setproductId(productId);
+        // console.log(productId);
       })
       .catch((error) => {
         console.log("Error", error);
       });
   }, []);
 
-  function navigateToFeedback() {
-    navigation.navigate("Feedback");
+  //recebe o id como argumento para passar para o outro component
+  function navigateToFeedback(id) {
+    navigation.navigate("Feedback", { id });
   }
 
   const renderProducts = ({ item: product, index }) => {
@@ -48,7 +54,8 @@ export default function Products({ navigation }) {
 
           <TouchableOpacity
             style={styles.buttonImage}
-            onPress={navigateToFeedback}
+            // cria funcao anonima que passa o product.id especifico do item clicado
+            onPress={() => navigateToFeedback(product.id)}
           >
             <Text style={styles.textButton}>Avaliar</Text>
           </TouchableOpacity>
