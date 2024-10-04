@@ -31,7 +31,7 @@ export default function Products({ navigation }) {
   }, []);
 
   //recebe o id como argumento para passar para o outro component
-  function navigateToFeedback(id) {
+  function navigateToFeedback(id: number) {
     navigation.navigate("Feedback", { id });
   }
 
