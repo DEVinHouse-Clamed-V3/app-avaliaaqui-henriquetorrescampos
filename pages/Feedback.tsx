@@ -9,7 +9,7 @@ import {
   Alert,
 } from "react-native";
 import { Switch, TextInput } from "react-native-gesture-handler";
-import uuid from "react-native-uuid";
+import Experience from "../components/Experience";
 
 export default function Feedback({ id }) {
   const [nome, setNome] = useState("");
@@ -79,6 +79,8 @@ export default function Feedback({ id }) {
         ></TextInput>
 
         <Text style={styles.exp}>Compartihe sua experiência</Text>
+
+        <Experience></Experience>
 
         <View style={styles.recommend}>
           <Switch value={recommend} onValueChange={setRecommend}></Switch>
