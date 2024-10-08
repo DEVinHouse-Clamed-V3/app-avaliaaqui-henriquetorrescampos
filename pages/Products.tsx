@@ -5,25 +5,36 @@ import {
   FlatList,
   Image,
   View,
+  ListRenderItemInfo,
 } from "react-native";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { NavigationProp } from "@react-navigation/native";
 
-export default function Products({ navigation }) {
-  const [products, setProducts] = useState([]);
+// ListRenderItemInfo, is a built-in interface of FlatList
+interface Product {
+  id: number;
+  name: string;
+  brand: string;
+  description: string;
+  price: string;
+  image: string;
+}
+
+interface ProductsProps {
+  navigation: NavigationProp<any>;
+}
+
+export default function Products({ navigation }: ProductsProps) {
+  const [products, setProducts] = useState<Product[]>([]);
   // const [productId, setproductId] = useState("");
 
   useEffect(() => {
     axios
       .get(process.env.EXPO_PUBLIC_API_URL + "/products")
       .then((response) => {
-        // console.log(response.data);
         setProducts(response.data);
-
-        // const productId = response.data.map((product) => product.id);
-        // setproductId(productId);
-        // console.log(productId);
       })
       .catch((error) => {
         console.log("Error", error);
@@ -35,7 +46,10 @@ export default function Products({ navigation }) {
     navigation.navigate("Feedback", { id });
   }
 
-  const renderProducts = ({ item: product, index }) => {
+  const renderProducts = ({
+    item: product,
+    index,
+  }: ListRenderItemInfo<Product>) => {
     return (
       <View style={styles.containerProduct}>
         <Image

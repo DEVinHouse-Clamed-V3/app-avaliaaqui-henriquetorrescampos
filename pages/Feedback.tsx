@@ -10,8 +10,15 @@ import {
 } from "react-native";
 import { Switch, TextInput } from "react-native-gesture-handler";
 import Experience from "../components/Experience";
+import { useRoute } from "@react-navigation/native";
 
-export default function Feedback({ id }) {
+interface FeedbackProps {
+  id: number;
+}
+
+export default function Feedback() {
+  const route = useRoute();
+  const { id } = route.params as { id: number };
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [feedback, setFeedback] = useState("");
@@ -21,11 +28,9 @@ export default function Feedback({ id }) {
   const handleFeedback = async () => {
     const newFeedback = {
       id,
-      productId,
       name: nome,
       email: email,
       feedback: feedback,
-      // exp: exp,
       recommend: recommend,
     };
 
@@ -39,14 +44,6 @@ export default function Feedback({ id }) {
       Alert.alert("Ocorreu um erro ao enviar o feedback");
     }
   };
-
-  // "id": 1,
-  // "productId": 1,
-  // "name": "João Silva",
-  // "email": "joao.silva@example.com",
-  // "feedback": "Ótimo filme, cheio de ação!",
-  // "experience": "Feliz",
-  // "recommend": true
 
   return (
     <SafeAreaView style={styles.containerSafe}>
@@ -115,7 +112,6 @@ const styles = StyleSheet.create({
   textInput: {
     marginTop: 40,
     gap: 30,
-    // width: "100%",
   },
   nameEmailInput: {
     borderWidth: 0.3,

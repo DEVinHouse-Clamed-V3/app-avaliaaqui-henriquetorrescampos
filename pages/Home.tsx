@@ -6,8 +6,13 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import { NavigationProp } from "@react-navigation/native";
 
-export default function Home({ navigation }) {
+interface ProductsProps {
+  navigation: NavigationProp<any>;
+}
+
+export default function Home({ navigation }: ProductsProps) {
   function navigateToProducts() {
     navigation.navigate("Products");
   }
